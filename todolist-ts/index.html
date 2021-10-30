@@ -6,10 +6,87 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .layout {
+      background-color: lightblue;
+      height: 50rem;
+    }
+
+    .sanjiao1 {
+      border-left: 50px solid coral;
+      border-top: 50px solid transparent;
+    }
+
+    .sanjiao2 {
+      border-left: 50px solid rgb(175, 58, 16);
+      border-bottom: 50px solid transparent;
+      border-top: 50px solid transparent;
+      border-right: 50px solid transparent;
+    }
+
+    .scale-1px {
+      position: relative;
+      margin-bottom: 20px;
+      border: none;
+    }
+
+    .scale-1px:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #000;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 200%;
+      height: 200%;
+      -webkit-transform: scale(0.5);
+      transform: scale(0.5);
+      -webkit-transform-origin: left top;
+      transform-origin: left top;
+    }
+  </style>
 </head>
 
 <body>
-  hello
+  <div class="layout">
+    <div class="sanjiao1"></div>
+    <div class="sanjiao2"></div>
+    <div class="scale-1px">我爱你</div>
+  </div>
 </body>
+<script>
+  (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      psdWidth = 750,  // 设计图宽度
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        if (clientWidth >= 640) {
+          docEl.style.fontSize = 2 * (640 / psdWidth) + 'px';
+        } else {
+          docEl.style.fontSize = 2 * (clientWidth / psdWidth) + 'px';
+        }
+      };
+
+    if (!doc.addEventListener) return;
+    // 绑定事件的时候最好配合防抖函数
+    win.addEventListener(resizeEvt, debounce(recalc, 1000), false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+
+    function debounce(func, wait) {
+      var timeout;
+      return function () {
+        var context = this;
+        var args = arguments;
+        clearTimeout(timeout)
+        timeout = setTimeout(function () {
+          func.apply(context, args)
+        }, wait);
+      }
+    }
+  })(document, window);
+</script>
 
 </html>
