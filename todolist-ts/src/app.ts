@@ -1,3 +1,4 @@
+import TodoEvent from "./js/todoEvent"
 import { ITodoData } from "./js/typings"
 
   ; ((doc) => {
@@ -33,9 +34,16 @@ import { ITodoData } from "./js/typings"
       oAddBtn.addEventListener('click', handleAddBtnClick, false)
       oTodoList.addEventListener('click', handleListClick, false)
     }
-    function handleAddBtnClick(): void {
-      console.log(1);
 
+    const todoEvent = new TodoEvent(todoData)
+
+    function handleAddBtnClick(): void {
+      todoEvent.addTodo(<ITodoData>{
+        id: 4,
+        content: '我爱你',
+        completed: false
+      })
+      console.log(todoData);
     }
     function handleListClick(e: MouseEvent): void {
       console.log(2);
