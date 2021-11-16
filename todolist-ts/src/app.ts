@@ -35,7 +35,7 @@ import { ITodoData } from "./js/typings"
       oTodoList.addEventListener('click', handleListClick, false)
     }
 
-    const todoEvent = new TodoEvent(todoData)
+    const todoEvent = new TodoEvent(todoData, oTodoList)
 
     function handleAddBtnClick(): void {
       todoEvent.addTodo(<ITodoData>{
