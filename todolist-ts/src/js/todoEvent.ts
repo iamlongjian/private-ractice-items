@@ -10,23 +10,26 @@ class TodoEvent extends TodoDom {
   }
 
   public addTodo(todo: ITodoData): undefined | number {
-    const _todo = this.todoData.find((item: ITodoData) => item.id === todo.id)
+    const _todo = this.todoData.find((item: ITodoData) => item.content === todo.content)
 
     if (!_todo) {
       this.todoData.push(todo)
+      this.addItem(todo)
       return
     }
     return 1001
   }
 
-  public removeTodo(todo: ITodoData): void {
+  public removeTodo(target: HTMLElement, todo: ITodoData): void {
     this.todoData = this.todoData.filter((item: ITodoData) => item.id !== todo.id)
+    this.removeItem(target)
   }
 
-  public toggleComplete(todo: ITodoData): void {
+  public toggleComplete(target: HTMLElement, todo: ITodoData): void {
     this.todoData.forEach((item: ITodoData) => {
       if (item.id === todo.id) {
         item.completed = !item.completed
+        this.changeCompleted(target, item.completed)
       }
     })
   }
