@@ -1,6 +1,6 @@
 import TodoTemplate from "./todoTemplate";
 import { ITodoData } from "./typings"
-import { findParentNode } from "../utils"
+import { findParentNode, creatItem } from "../utils"
 
 
 class TodoDom extends TodoTemplate {
@@ -11,10 +11,19 @@ class TodoDom extends TodoTemplate {
     this.todoWrapper = todoWrapper
   }
 
+  // 初始化列表
+  protected initList(todoData: ITodoData[]) {
+    const oFrg = document.createDocumentFragment() // 空标签
+    todoData.map((todo: ITodoData) => {
+      const oItem: HTMLElement = creatItem(this.todoView(todo))
+      this.todoWrapper.appendChild(oItem)
+      oFrg.appendChild(oItem)
+    })
+    this.todoWrapper.appendChild(oFrg)
+  }
+
   protected addItem(todo: ITodoData) {
-    const oItem: HTMLElement = document.createElement('div')
-    oItem.className = 'todo-item'
-    oItem.innerHTML = this.todoView(todo)
+    const oItem: HTMLElement = creatItem(this.todoView(todo))
     this.todoWrapper.appendChild(oItem)
   }
 

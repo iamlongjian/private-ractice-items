@@ -8,7 +8,23 @@ import { ITodoData } from "./js/typings"
     const oTodoList: HTMLElement = document.querySelector('.todo-list')
 
     // 写死一份数据
-    const todoData: ITodoData[] = []
+    const todoData: ITodoData[] = [
+      {
+        id: 1,
+        content: '我是1',
+        completed: false
+      },
+      {
+        id: 2,
+        content: '我是2',
+        completed: true
+      },
+      {
+        id: 3,
+        content: '我是3',
+        completed: true
+      }
+    ]
     //初始化函数
     const init = (): void => {
       bindEvent()
@@ -34,9 +50,26 @@ import { ITodoData } from "./js/typings"
           return
         }
       }
+      oInput.value = ''
     }
+
     function handleListClick(e: MouseEvent): void {
-      console.log(2);
+      const tar = e.target as HTMLElement
+      const tagName = tar.tagName.toLowerCase()
+
+      if (tagName === 'input' || tagName === 'button') {
+        const id = parseInt(tar.dataset.id)
+        switch (tagName) {
+          case 'input':
+            todoEvent.toggleComplete(tar, id)
+            break;
+          case 'button':
+            todoEvent.removeTodo(tar, id)
+            break;
+          default:
+            break;
+        }
+      }
     }
     // 执行初始化函数
     init()

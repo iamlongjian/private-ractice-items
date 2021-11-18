@@ -4,3 +4,11 @@ export function findParentNode(target: HTMLElement, className: String) {
       return target
   }
 }
+
+export function creatItem(innerHtml: string) {
+  const oItem: HTMLElement = document.createElement('div')
+  oItem.className = 'todo-item'
+  oItem.innerHTML = innerHtml
+
+  return oItem
+}
