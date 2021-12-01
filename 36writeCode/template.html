@@ -12,28 +12,6 @@
 
 </body>
 <script>
-  const jsonp = ({ url, params, callbakName }) => {
-    const generateUrl = () => {
-      let dataSrc = ''
-      for (const key in params) {
-        if (Object.hasOwnProperty.call(params, key)) {
-          const element = params[key];
-          dataSrc += `${key}=${params[key]}&`
-        }
-      }
-      dataSrc += `callback=${callbakName}`
-      return url + '?' + dataSrc
-    }
-    return new Promise((resolve, reject) => {
-      const scriptEle = document.createElement('script')
-      scriptEle.src = generateUrl()
-      window[callbakName] = (data) => {
-        resolve(data)
-        // document.removeChild(scriptEle)
-      }
-    })
-  }
-  console.log(jsonp({ url: `https:baidu.com`, params: { key: 'key', val: 'val' }, callbakName: 'cbs' }));
 </script>
 
 </html>
