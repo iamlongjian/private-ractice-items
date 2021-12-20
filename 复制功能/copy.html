@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复制</title>
+</head>
+
+<body>
+  <button id="copy">复制</button>
+  <br>
+  <textarea cols="30" rows="10" placeholder="粘贴到这测试"></textarea>
+</body>
+<script>
+  document.getElementById('copy').addEventListener('click', () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('我被复制了')
+    } else {
+      // 如果浏览器不支持该api
+      const text = '我被复制了'
+      const textArea = document.createElement('textarea')
+      document.body.appendChild(textArea)
+      // 隐藏此输入框
+      textArea.style.position = 'fixed'
+      textArea.style.clip = 'rect(0 0 0 0)'
+      textArea.style.top = '10px'
+      // 赋值
+      textArea.value = text
+
+      // 选中
+      textArea.select()
+
+      // 复制
+      document.execCommand('copy', true)
+
+      // 移除输入框
+      document.removeChild(textArea)
+    }
+  })
+</script>
+
+</html>
